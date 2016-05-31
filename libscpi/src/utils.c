@@ -1010,7 +1010,14 @@ char * SCPI_dtostre(double __val, char * __s, size_t __ssize, unsigned char __pr
         }
     }
 
+
+// G++ 4.4.3 have problems with isfinite(x) macro. 
+// Replaced it by finite(x) which is almost the same.
+#if (__GNUC__ == 4) && (__GNUC_MINOR__ == 4) && (__GNUC_PATCHLEVEL__ == 3)
+    if (!finite(__val)) {
+#else
     if (!isfinite(__val)) {
+#endif
         if (isnan(__val)) {
             strcpy(s, (__flags & SCPI_DTOSTRE_UPPERCASE) ? "NAN" : "nan");
         } else {
