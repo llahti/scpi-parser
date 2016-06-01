@@ -115,6 +115,14 @@ extern "C" {
 #define HAVE_DTOSTRE            1
 #endif
 
+/*GCC 4.4.3 arm-none-gnueabi-g++ */
+#if (__GNUC__ == 4) && (__GNUC_MINOR__ == 4) && (__GNUC_PATCHLEVEL__ == 3)
+    #undef HAVE_ISFINITE
+    #undef HAVE_FINITE
+    #define HAVE_ISFINITE 0
+    #define HAVE_FINITE 1
+#endif
+
 #ifndef HAVE_STRNLEN
 #define HAVE_STRNLEN            0
 #endif
